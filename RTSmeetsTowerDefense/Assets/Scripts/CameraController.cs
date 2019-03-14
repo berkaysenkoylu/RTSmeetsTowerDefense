@@ -13,6 +13,8 @@ public class CameraController : MonoBehaviour
     public Vector2 zMinMax; // Variable for min and max of z axis of the camera position
     public Transform playerTransform; // Variable for character transform
 
+    public bool enableEdgeScrolling = false;
+
     Vector2 mousePosCorrespondance; // Variable to find where the mouse position corresponds to on screen
 
     void Start()
@@ -32,7 +34,7 @@ public class CameraController : MonoBehaviour
         }
 
         // If edge scrolling is being done, then movement is done with it
-        if(isEdgeScrolling)
+        if(isEdgeScrolling && enableEdgeScrolling)
         {
             EdgeScrollMovement();
         }
