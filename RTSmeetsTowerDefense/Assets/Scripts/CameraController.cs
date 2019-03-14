@@ -11,7 +11,7 @@ public class CameraController : MonoBehaviour
     public Vector2 xMinMax; // Variable for min and max of x axis of the camera position
     public Vector2 yMinMax; // Variable for min and max of y axis of the camera position
     public Vector2 zMinMax; // Variable for min and max of z axis of the camera position
-    public Transform playerTransform;
+    public Transform playerTransform; // Variable for character transform
 
     Vector2 mousePosCorrespondance; // Variable to find where the mouse position corresponds to on screen
 

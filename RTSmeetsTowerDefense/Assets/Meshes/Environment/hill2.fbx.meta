@@ -1,38 +1,20 @@
 fileFormatVersion: 2
-guid: 846ae632dbf48eb4abd58c333059360f
+guid: 72f0038343f3e4d4c90521d52d772ab0
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: Terrain_beach
-    2100002: Terrain_grass
-    2100004: Terrain_mountain_place
-    2100006: Terrain_grass_2
+    2100000: hill1
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Terrain
+    4300000: Hill1
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Terrain_beach
-    second: {fileID: 2100000, guid: d7a894a24d1490b46b1b9a1ac7b9443c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Terrain_grass
-    second: {fileID: 2100000, guid: 5e8642b5c8aa35343898030c42bb0951, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Terrain_grass_2
-    second: {fileID: 2100000, guid: 2d81ac5966e4a8b4294b36b5986ab90d, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Terrain_mountain_place
-    second: {fileID: 2100000, guid: c150deb8833ea004e85178475c9040be, type: 2}
+      name: hill1
+    second: {fileID: 2100000, guid: 8b05680c8897ed7469ee6ef9dad771e1, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
