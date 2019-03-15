@@ -136,6 +136,9 @@ public class PlayerMotor : MonoBehaviour
         playerInventory.IncrementItemInInventory(harvestedResource.resourceName,
                                                  harvestedResource.resourceYield);
 
+        // Trigger an event called 'Resource amount changed': UIManager.cs is listening to update the ResourceGUI
+        EventManager.TriggerEvent("Resource amount changed");
+
         // Having collected the resource, set isCollecting to false
         isCollecting = false;
 
