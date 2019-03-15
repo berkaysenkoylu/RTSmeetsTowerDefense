@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class PlayerMotor : MonoBehaviour
 {
+    PlayerInventory playerInventory;
     Animator animator; // Reference for animator on the player
     NavMeshAgent agent; // Reference for navmeshagent component on the player
     Vector3 destination; // Reference for a location called 'destination'
@@ -19,6 +20,7 @@ public class PlayerMotor : MonoBehaviour
         // Set up the references
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        playerInventory = GetComponent<PlayerInventory>();
     }
 
     void Update()
@@ -112,18 +114,27 @@ public class PlayerMotor : MonoBehaviour
     }
 
     // Function to handle resource collection
-    // TODO: Add animation transitions and increment associated resource
+    // TODO: Add animation transitions
     public IEnumerator CollectResource()
     {
         Debug.Log("Collecting the resource");
 
+        // Get the resource component of the harvested resource
+        Resource harvestedResource = targetResource.GetComponent<Resource>();
+
         // Set is collecting true
         isCollecting = true;
+
+        // TODO: Handle correct animation transitions here, depending on what kind of resource is being collected
 
         // Wait for a while (preferably the duration of the associated resource collection animation)
         yield return new WaitForSeconds(1.5f);
 
         Debug.Log("Collected the resource: " + targetResource.tag);
+
+        // Increment the amount of the associated resource in the inventory
+        playerInventory.IncrementItemInInventory(harvestedResource.resourceName,
+                                                 harvestedResource.resourceYield);
 
         // Having collected the resource, set isCollecting to false
         isCollecting = false;

@@ -88,8 +88,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 112000000, guid: 6d88e20beef74e74b81fd7cc99cd500d,
-    type: 2}
+  m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -123,6 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 168719265}
   - component: {fileID: 168719264}
+  - component: {fileID: 168719266}
   m_Layer: 10
   m_Name: Tree
   m_TagString: Tree
@@ -158,6 +158,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &168719266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168719263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83e1852dcd3f63a4b8504f3f5a643b85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceName: Log
+  resourceYield: 10
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
@@ -879,6 +893,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1601941246}
   - component: {fileID: 1601941245}
+  - component: {fileID: 1601941247}
   m_Layer: 10
   m_Name: Rock
   m_TagString: Rock
@@ -915,6 +930,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1601941247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1601941244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83e1852dcd3f63a4b8504f3f5a643b85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceName: Rock
+  resourceYield: 5
 --- !u!1 &1615979689
 GameObject:
   m_ObjectHideFlags: 0
