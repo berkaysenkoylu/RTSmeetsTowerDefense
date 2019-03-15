@@ -10,10 +10,13 @@ public class PlayerInventory : MonoBehaviour
     {
         playerInventory = new Inventory();
 
+        
+
+        /*
         foreach(KeyValuePair<Inventory.ResourceTypes, int> item in playerInventory.GetInventoryContent())
         {
             Debug.Log(item.Key + ": " + item.Value);
-        }
+        }*/
     }
 
     void Update()
