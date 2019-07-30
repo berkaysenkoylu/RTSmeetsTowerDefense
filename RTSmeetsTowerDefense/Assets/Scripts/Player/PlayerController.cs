@@ -21,11 +21,18 @@ public class PlayerController : MonoBehaviour
         if(mainCam == null)
         {
             Debug.Log("Label your main camera correctly, or add a camera if there is a lack thereof!");
-        }
-    }
+        } 
+}
 
     void Update()
     {
+        // Check if mouse is over a UI element; if so, do nothing
+        // TODO: Perhaps change it later?
+        if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(-1))
+        {
+            return;
+        }
+
         // Check for mouse left clicks
         if (Input.GetMouseButtonDown(0))
         {
@@ -36,7 +43,7 @@ public class PlayerController : MonoBehaviour
             RaycastHit hit;
 
             // Handle the raycast: using the formed ray, onto the specified layermask ("Ground" in this case)
-            if(Physics.Raycast(ray, out hit, layerMask))
+            if (Physics.Raycast(ray, out hit, layerMask))
             {
                 // If player is collecting a resource, do nothing
                 if (playerMotor.IsPlayerCollecting())

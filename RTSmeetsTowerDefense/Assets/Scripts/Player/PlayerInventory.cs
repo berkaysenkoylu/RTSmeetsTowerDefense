@@ -21,6 +21,21 @@ public class PlayerInventory : MonoBehaviour
 
         // Call the related function residing in Inventory class to add the item corresponding to inputted arguments
         playerInventory.AddItemToInventory(resType, amount);
+
+        // Trigger an event called 'Resource amount changed': UIManager.cs is listening to update the ResourceGUI
+        EventManager.TriggerEvent("Resource amount changed");
+    }
+
+    public void DecrementItemInInventory(string resourceName, int amount)
+    {
+        // Convert the name of the resource to 'ResourceTypes' enum, residing in Inventory
+        Inventory.ResourceTypes resType = (Inventory.ResourceTypes)Enum.Parse(typeof(Inventory.ResourceTypes), resourceName.ToLower());
+
+        // Call the related function residing in Inventory class to add the item corresponding to inputted arguments
+        playerInventory.SubtractItemFromInventory(resType, amount);
+
+        // Trigger an event called 'Resource amount changed': UIManager.cs is listening to update the ResourceGUI
+        EventManager.TriggerEvent("Resource amount changed");
     }
 
     // Function to output the inventory class instance

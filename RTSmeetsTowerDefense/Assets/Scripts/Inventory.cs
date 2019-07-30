@@ -27,6 +27,11 @@ public class Inventory
         inventoryContent[type] += amount;
     }
 
+    public void SubtractItemFromInventory(ResourceTypes type, int amount)
+    {
+        inventoryContent[type] -= amount;
+    }
+
     // Function to initialize the inventory
     void InitializeInventory()
     {

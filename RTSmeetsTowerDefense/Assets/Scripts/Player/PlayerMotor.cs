@@ -63,6 +63,12 @@ public class PlayerMotor : MonoBehaviour
     // Function for moving the character to a point, given by an argument called 'location'
     public void GoToLocation(Vector3 location)
     {
+        // If in building mode, then moving is not allowed
+        if (BuildManager.instance.isBuildingMode())
+        {
+            return;
+        }
+
         // Form a navmeshhit variable
         NavMeshHit hit;
 
@@ -136,8 +142,7 @@ public class PlayerMotor : MonoBehaviour
         playerInventory.IncrementItemInInventory(harvestedResource.resourceName,
                                                  harvestedResource.resourceYield);
 
-        // Trigger an event called 'Resource amount changed': UIManager.cs is listening to update the ResourceGUI
-        EventManager.TriggerEvent("Resource amount changed");
+        
 
         // Having collected the resource, set isCollecting to false
         isCollecting = false;

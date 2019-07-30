@@ -9,6 +9,11 @@ public class UIManager : MonoBehaviour
     public Sprite[] resourceIcons; // An array to keep the sprites to use as icons of resources in individual resource GUI
     public GameObject resource; // Prefab that represents resource: Icon (raw image): Amount (text)
 
+    public Slider dayTimeSlider;
+    public Sprite[] dayTimeSprites;
+    public Image background;
+    public Image fillImage;
+
     List<GameObject> resourceGUIContainer; // List to hold all the resource GUI prefabs (to be used while updating the values)
     PlayerInventory playerInventoryScript; // Reference for player inventory script
     Inventory playerInventory; // Reference for player inventory
@@ -30,6 +35,9 @@ public class UIManager : MonoBehaviour
 
         // Call the function InitializeResourcesUI() to create the resource GUI
         InitializeResourcesUI();
+
+        // TODO: Just tryin'
+        Sun.whatTimeIsIt += UpdateDayTimeSlider;
     }
 
     // Function for initializing the resource GUI
@@ -89,11 +97,33 @@ public class UIManager : MonoBehaviour
         // Iterate through resourceGUIContainer list
         foreach (GameObject resGUI in resourceGUIContainer)
         {
-            // Convenrt resourceGUI element's name to Inventory.ResourceTypes enum type
+            // Convert resourceGUI element's name to Inventory.ResourceTypes enum type
             Inventory.ResourceTypes type = (Inventory.ResourceTypes)Enum.Parse(typeof(Inventory.ResourceTypes), resGUI.name);
 
             // Update the resourceGUI element's amount
             resGUI.GetComponentInChildren<Text>().text = inventoryContents[type].ToString();
+        }
+    }
+
+    void UpdateDayTimeSlider(float dayTimePercentage)
+    {
+        if(dayTimePercentage <= 0.5f)
+        {
+            dayTimeSlider.direction = Slider.Direction.LeftToRight;
+            dayTimeSlider.value = dayTimePercentage;
+
+            // Change slider sprites
+            background.sprite = dayTimeSprites[0];
+            fillImage.sprite = dayTimeSprites[1];
+        }
+        else
+        {
+            dayTimeSlider.direction = Slider.Direction.RightToLeft;
+            dayTimeSlider.value = dayTimePercentage - 0.5f;
+
+            // Change slider sprites
+            background.sprite = dayTimeSprites[1];
+            fillImage.sprite = dayTimeSprites[0];
         }
     }
 }
