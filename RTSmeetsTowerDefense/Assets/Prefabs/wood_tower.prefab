@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2643139014990552034}
   - component: {fileID: -2296660616552690059}
   - component: {fileID: 6299332466813431757}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: wood_tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,6 +64,7 @@ MonoBehaviour:
   range: 5
   isBuilt: 0
   smoothTiming: 1
+  woodCost: 10
 --- !u!1 &8197794506247228899
 GameObject:
   m_ObjectHideFlags: 0
@@ -75,7 +76,7 @@ GameObject:
   - component: {fileID: 3394745087744361139}
   - component: {fileID: 5366264864085752205}
   - component: {fileID: 4052800300486649476}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TowerRoof
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +155,7 @@ GameObject:
   - component: {fileID: 1562923494778829964}
   - component: {fileID: 4577757913145140325}
   - component: {fileID: 5512849213249273156}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TowerBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
