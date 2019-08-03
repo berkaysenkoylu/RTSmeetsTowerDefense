@@ -9,6 +9,8 @@ public class Zombie : MonoBehaviour
     public float healthPoint = 100f;
     public float attackRange = 5f;
     public GameObject mainTarget;
+    public float attackPower = 10f;
+    public GameObject healthBar;
 
     Vector3 targetPosition;
     NavMeshAgent zombieAgent;
@@ -17,6 +19,9 @@ public class Zombie : MonoBehaviour
 
     ZombieAI zombieAI;
     Node zombieBT;
+
+    public delegate void ZombieDamageDealt(float damageAmount);
+    public static event ZombieDamageDealt DealDamage;
 
     private void Awake()
     {
@@ -50,6 +55,8 @@ public class Zombie : MonoBehaviour
         {
             GetDamaged(10f);
         }
+
+        healthBar.transform.LookAt(Camera.main.transform);
     }
 
     public GameObject GetMainTarget()
@@ -99,6 +106,8 @@ public class Zombie : MonoBehaviour
         if (canAttack)
         {
             Debug.Log("SHRED!!!");
+
+            DealDamage(attackPower);
 
             canAttack = false;
         }
