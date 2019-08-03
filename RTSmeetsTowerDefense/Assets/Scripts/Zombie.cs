@@ -7,15 +7,15 @@ using BehaviourTree;
 public class Zombie : MonoBehaviour
 {
     public float healthPoint = 100f;
-    public float attackRange = 4f;
+    public float attackRange = 5f;
     public GameObject mainTarget;
-    public LayerMask _mask;
 
-    [SerializeField]
     Vector3 targetPosition;
     NavMeshAgent zombieAgent;
-    ZombieAI zombieAI;
+    bool canAttack = true;
+    float attackRate = 1.5f;
 
+    ZombieAI zombieAI;
     Node zombieBT;
 
     private void Awake()
@@ -27,12 +27,24 @@ public class Zombie : MonoBehaviour
     {
         zombieAgent = GetComponent<NavMeshAgent>();
 
-        zombieBT = zombieAI.CreateBehaviorTree(this, mainTarget, _mask);
+        zombieBT = zombieAI.CreateBehaviorTree(this);
     }
 
     void Update()
     {
         zombieBT.Behave();
+
+        if (!canAttack)
+        {
+            attackRate -= Time.deltaTime;
+        }
+
+        if (attackRate <= 0f)
+        {
+            attackRate = 1.5f;
+            canAttack = true;
+        }
+
 
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -40,14 +52,14 @@ public class Zombie : MonoBehaviour
         }
     }
 
-    public void SetMainTarget(GameObject target)
-    {
-        mainTarget = target;
-    }
-
     public GameObject GetMainTarget()
     {
         return mainTarget;
+    }
+
+    public bool getCanAttack()
+    {
+        return canAttack;
     }
 
     public void SetTargetPosition(Vector3 pos)
@@ -68,11 +80,29 @@ public class Zombie : MonoBehaviour
         {
             zombieAgent.isStopped = true;
         }
-
-        zombieAgent.SetDestination(desiredLocation);
+        else
+        {
+            zombieAgent.SetDestination(desiredLocation);
+        }
     }
 
+    public void MeleeAttackTarget()
+    {
+        // Face the target first
+        Vector3 dir = (mainTarget.transform.position - transform.position).normalized;
 
+        dir.y = 0f;
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 1.5f);
+
+        // Attack the target
+        if (canAttack)
+        {
+            Debug.Log("SHRED!!!");
+
+            canAttack = false;
+        }
+    }
 
 
 

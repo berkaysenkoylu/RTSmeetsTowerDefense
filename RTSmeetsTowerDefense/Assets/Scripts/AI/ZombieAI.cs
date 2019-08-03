@@ -15,17 +15,14 @@ public class ZombieAI : MonoBehaviour
 
     }
 
-    public Node CreateBehaviorTree(Zombie zombie, GameObject mainTarget, LayerMask _mask)
+    public Node CreateBehaviorTree(Zombie zombie)
     {
         Selector deathSequence = new Selector("Death Sequence", new ShouldIDie(zombie), new Die(zombie));
 
-        Sequence targetSelectionSequence = new Sequence("Do I have a target?", new HaveTarget(zombie, _mask, zombie.GetMainTarget()), new SetDestination(zombie));
+        // GetReadyToAttack can cause jittering; remove it if need be
+        Sequence attackEnemy = new Sequence("Attack Enemy", new GetMoving(zombie), new GetReadyToAttack(zombie), new MeleeAttack(zombie));
 
-        Sequence moveSequence = new Sequence("Move Sequence", new Inverter(new CheckDistance(zombie)), new MoveTowardsEnemy(zombie));
-
-        Sequence attackSequence = new Sequence("Attack Sequence", new ReadyToAttack(zombie));
-
-        Sequence treeRoot = new Sequence("Root behaviour", deathSequence, targetSelectionSequence, moveSequence, attackSequence);
+        Sequence treeRoot = new Sequence("Root behaviour", deathSequence, attackEnemy);
 
         return treeRoot;
     }
@@ -76,100 +73,11 @@ public class ZombieAI : MonoBehaviour
         public override void OnReset() { }
     }
 
-    public class HaveTarget : Leaf
-    {
-        Zombie self;
-        GameObject target;
-        LayerMask attackMask;
-
-        public HaveTarget(Zombie own, LayerMask _mask, GameObject defaultTarget)
-        {
-            self = own;
-            attackMask = _mask;
-            target = defaultTarget;
-        }
-
-        public override NodeStatus OnBehave()
-        {
-            // Check if there are potential targets in the zombie's surroundings (such as player, towers, ...etc)
-            Collider[] targetColliders = Physics.OverlapSphere(self.gameObject.transform.position, 10f, attackMask);
-
-            GameObject closestTarget = GetClosestTarget(targetColliders);
-
-            if(closestTarget != null)
-            {
-                target = closestTarget;
-            }
-
-            if (target != null)
-            {
-                self.SetMainTarget(target);
-
-                return NodeStatus.SUCCESS;
-            }
-            else
-            {
-                return NodeStatus.FAILURE;
-            }
-        }
-
-        GameObject GetClosestTarget(Collider[] potentialTargets)
-        {
-            float distance = 999f;
-            GameObject closestTarget = null;
-
-            foreach(Collider potentialTarget in potentialTargets)
-            {
-                float currDistance = Vector3.Distance(self.transform.position, potentialTarget.gameObject.transform.position);
-
-                if (currDistance < distance)
-                {
-                    closestTarget = potentialTarget.gameObject;
-                    distance = currDistance;
-                }
-            }
-
-            return closestTarget;
-        }
-
-        public override void OnReset() { }
-    }
-
-    public class SetDestination : Leaf
+    public class GetMoving : Leaf
     {
         Zombie self;
 
-        public SetDestination(Zombie own)
-        {
-            self = own;
-        }
-
-        public override NodeStatus OnBehave()
-        {
-            Debug.Log("Setting destination");
-
-            GameObject target = self.GetMainTarget();
-
-            if (target != null)
-            {
-                self.SetTargetPosition(target.transform.position);
-
-                return NodeStatus.SUCCESS;
-            }
-
-            return NodeStatus.FAILURE;
-        }
-
-        public override void OnReset() { }
-    }
-
-    // TODO: Stuff that is below is likely to be changed...
-
-    public class CheckDistance : Leaf
-    {
-        Zombie self;
-
-        public CheckDistance(Zombie own)
+        public GetMoving(Zombie own)
         {
             self = own;
         }
@@ -178,43 +86,16 @@ public class ZombieAI : MonoBehaviour
         {
             if (self.TargetWithinDistance())
             {
-                Debug.Log("Target is within distance");
                 return NodeStatus.SUCCESS;
             }
             else
             {
-                Debug.Log("Target is not within distance");
-                return NodeStatus.FAILURE;
-            }
-        }
+                Vector3 targetPosition = self.GetMainTarget().transform.position;
 
-        public override void OnReset() { }
-    }
+                self.SetTargetPosition(targetPosition);
 
-    public class MoveTowardsEnemy : Leaf
-    {
-        Zombie self;
-
-        public MoveTowardsEnemy(Zombie own)
-        {
-            self = own;
-        }
-
-        public override NodeStatus OnBehave()
-        {
-            float distance = Vector3.Distance(self.gameObject.transform.position, self.GetMainTarget().transform.position);
-
-            if (distance > 4f)
-            {
                 self.MoveToDestination();
-            }
 
-            if(distance <= 4f)
-            {
-                return NodeStatus.SUCCESS;
-            }
-            else
-            {
                 return NodeStatus.RUNNING;
             }
         }
@@ -222,23 +103,56 @@ public class ZombieAI : MonoBehaviour
         public override void OnReset() { }
     }
 
-    public class ReadyToAttack : Leaf
+    public class GetReadyToAttack : Leaf
     {
         Zombie self;
 
-        public ReadyToAttack(Zombie own)
+        public GetReadyToAttack(Zombie own)
         {
             self = own;
         }
 
         public override NodeStatus OnBehave()
         {
-            Debug.Log("Zombie is ready to attack");
-
-            return NodeStatus.SUCCESS;
+            if(!self.getCanAttack())
+            {
+                //Debug.Log("Preparing to attack");
+                return NodeStatus.RUNNING;
+            } 
+            else
+            {
+                return NodeStatus.SUCCESS;
+            }
         }
 
         public override void OnReset() { }
     }
+
+    public class MeleeAttack : Leaf
+    {
+        Zombie self;
+
+        public MeleeAttack(Zombie own)
+        {
+            self = own;
+        }
+
+        public override NodeStatus OnBehave()
+        {
+            if (self.TargetWithinDistance())
+            {
+                self.MeleeAttackTarget();
+
+                return NodeStatus.SUCCESS;
+            }
+            else
+            {
+                return NodeStatus.FAILURE;
+            }
+        }
+
+        public override void OnReset() { }
+    }
+
     // ============================================= //
 }
