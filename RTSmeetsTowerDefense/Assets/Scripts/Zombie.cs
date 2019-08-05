@@ -6,7 +6,7 @@ using BehaviourTree;
 
 public class Zombie : MonoBehaviour
 {
-    public float healthPoint = 100f;
+    public float maxHealthPoint = 100f;
     public float attackRange = 5f;
     public GameObject mainTarget;
     public float attackPower = 10f;
@@ -16,12 +16,21 @@ public class Zombie : MonoBehaviour
     NavMeshAgent zombieAgent;
     bool canAttack = true;
     float attackRate = 1.5f;
+    float healthPoint;
 
     ZombieAI zombieAI;
     Node zombieBT;
 
     public delegate void ZombieDamageDealt(float damageAmount);
     public static event ZombieDamageDealt DealDamage;
+
+    public delegate void ZombieDeath(GameObject zombie);
+    public static event ZombieDeath zombieIsDead;
+
+    public void InvokeDeathEvent()
+    {
+        zombieIsDead(gameObject);
+    }
 
     private void Awake()
     {
@@ -32,7 +41,16 @@ public class Zombie : MonoBehaviour
     {
         zombieAgent = GetComponent<NavMeshAgent>();
 
+        //zombieBT = zombieAI.CreateBehaviorTree(this);
+    }
+
+    private void OnEnable()
+    {
         zombieBT = zombieAI.CreateBehaviorTree(this);
+
+        healthPoint = maxHealthPoint;
+
+        UpdateHealthBar(healthPoint);
     }
 
     void Update()
@@ -113,17 +131,26 @@ public class Zombie : MonoBehaviour
         }
     }
 
-
-
-
-
     void GetDamaged(float amount)
     {
         healthPoint -= amount;
+
+        UpdateHealthBar(healthPoint);
     }
 
     public float getHealthPoint()
     {
         return healthPoint;
+    }
+
+    void UpdateHealthBar(float currentHealth)
+    {
+        float healthPercentage = currentHealth / maxHealthPoint;
+
+        float xScale = healthPercentage;
+
+        healthBar.transform.GetChild(1).transform.localScale = new Vector3(xScale, 1f, 1f);
+
+        healthBar.transform.GetChild(1).transform.localPosition = new Vector3(1f - xScale, 0f, 0f);
     }
 }

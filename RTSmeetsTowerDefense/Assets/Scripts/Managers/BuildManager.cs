@@ -58,6 +58,12 @@ public class BuildManager : MonoBehaviour
             case "wood":
                 ghostTowers[0].SetActive(true);
                 break;
+            case "rock":
+                ghostTowers[1].SetActive(true);
+                break;
+            default:
+                Debug.Log("ERROR: Make sure to put new tower ghost to tower ghosts pool!");
+                break;
         }
     }
 
@@ -69,6 +75,11 @@ public class BuildManager : MonoBehaviour
                 position = new Vector3(position.x, -4.0f, position.z);
                 GameObject newWoodTower = Instantiate(towers[0], position, Quaternion.identity);
                 newWoodTower.transform.SetParent(towerContainer);
+                break;
+            case "RockGhost":
+                position = new Vector3(position.x, -6.0f, position.z);
+                GameObject newRockTower = Instantiate(towers[1], position, Quaternion.identity);
+                newRockTower.transform.SetParent(towerContainer);
                 break;
             default:
                 Debug.Log("Oops something went wrong! Check your tags and shit man....");

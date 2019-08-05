@@ -44,8 +44,6 @@ public class GhostTower : MonoBehaviour
             gameObject.SetActive(false);
         }
 
-        // TODO: Add some conditions to be able to build the tower
-        // Change the color of the tower to give player some feedback
         if (CanBuildTower())
         {
             ghostTowerMaterial.color = colors[0];
@@ -55,8 +53,19 @@ public class GhostTower : MonoBehaviour
             {
                 whereToBuild(transform.position, tag);
 
-                // Subtract the resource from player's inventory
-                player.GetComponent<PlayerInventory>().DecrementItemInInventory("log", buildManager.towers[0].GetComponent<WoodTower>().woodCost);
+                // Subtract the corresponding resource from player's inventory
+                switch (tag)
+                {
+                    case "WoodGhost":
+                        player.GetComponent<PlayerInventory>().DecrementItemInInventory("log", buildManager.towers[0].GetComponent<WoodTower>().woodCost);
+                        break;
+                    case "RockGhost":
+                        player.GetComponent<PlayerInventory>().DecrementItemInInventory("rock", buildManager.towers[1].GetComponent<RockTower>().rockCost);
+                        break;
+                    default:
+                        Debug.Log("ERROR: Check your ghost towers tags");
+                        break;
+                }
 
                 // Reset the ghost's position
                 transform.position = new Vector3(0f, -10f, 0f);
@@ -108,6 +117,15 @@ public class GhostTower : MonoBehaviour
             Inventory.ResourceTypes type = (Inventory.ResourceTypes)Enum.Parse(typeof(Inventory.ResourceTypes), "log");
 
             if (player.GetComponent<PlayerInventory>().GetInventory().GetInventoryContent()[type] < buildManager.towers[0].GetComponent<WoodTower>().woodCost)
+            {
+                return false;
+            }
+        }
+        else if(tag == "RockGhost")
+        {
+            Inventory.ResourceTypes type = (Inventory.ResourceTypes)Enum.Parse(typeof(Inventory.ResourceTypes), "rock");
+
+            if (player.GetComponent<PlayerInventory>().GetInventory().GetInventoryContent()[type] < buildManager.towers[1].GetComponent<RockTower>().rockCost)
             {
                 return false;
             }

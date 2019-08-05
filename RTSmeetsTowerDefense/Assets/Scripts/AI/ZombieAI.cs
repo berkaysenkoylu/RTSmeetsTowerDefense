@@ -62,9 +62,7 @@ public class ZombieAI : MonoBehaviour
         public override NodeStatus OnBehave()
         {
             // Zombie dies
-            // TODO: Implement death mechanism: To destroy, to deactivate, or ... something else?
-            Debug.Log("Zomboi is dead");
-            Destroy(self.gameObject);
+            self.InvokeDeathEvent();
 
             // To break the whole sequence
             return NodeStatus.FAILURE;
@@ -84,6 +82,11 @@ public class ZombieAI : MonoBehaviour
 
         public override NodeStatus OnBehave()
         {
+            if (self.getHealthPoint() <= 0f)
+            {
+                return NodeStatus.FAILURE;
+            }
+
             if (self.TargetWithinDistance())
             {
                 return NodeStatus.SUCCESS;
@@ -114,7 +117,12 @@ public class ZombieAI : MonoBehaviour
 
         public override NodeStatus OnBehave()
         {
-            if(!self.getCanAttack())
+            if (self.getHealthPoint() <= 0f)
+            {
+                return NodeStatus.FAILURE;
+            }
+
+            if (!self.getCanAttack())
             {
                 //Debug.Log("Preparing to attack");
                 return NodeStatus.RUNNING;
@@ -139,6 +147,11 @@ public class ZombieAI : MonoBehaviour
 
         public override NodeStatus OnBehave()
         {
+            if (self.getHealthPoint() <= 0f)
+            {
+                return NodeStatus.FAILURE;
+            }
+
             if (self.TargetWithinDistance())
             {
                 self.MeleeAttackTarget();
