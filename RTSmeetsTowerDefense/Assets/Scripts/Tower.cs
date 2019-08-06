@@ -5,10 +5,13 @@ using UnityEngine;
 public class Tower : MonoBehaviour
 {
     // Attributes shared with all the types of towers
+    [Header("Features")]
     public bool isBuilt = false;
     public float smoothTiming = 1f;
     public float damageAmount;
     public float maxRange;
+    public LayerMask zombieLayer;
+    public Transform muzzle;
 
     public virtual void Init()
     {

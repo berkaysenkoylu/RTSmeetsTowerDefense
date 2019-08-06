@@ -6,9 +6,7 @@ public class WoodTower : Tower
 {
     public int woodCost = 10;
 
-    [SerializeField]
     float damage;
-    [SerializeField]
     float range;
 
     private void Start()

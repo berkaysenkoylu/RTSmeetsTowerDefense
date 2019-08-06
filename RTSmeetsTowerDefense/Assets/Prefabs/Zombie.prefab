@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 63507857412022496}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,9 +47,9 @@ GameObject:
   - component: {fileID: 1117584129072107145}
   - component: {fileID: 1117584129072107144}
   - component: {fileID: 1117584129072107190}
-  m_Layer: 0
-  m_Name: Zombie
-  m_TagString: Untagged
+  m_Layer: 11
+  m_Name: zombie
+  m_TagString: Zombie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da8e8622b35bdec48a05be4e85d7f643, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoint: 100
+  maxHealthPoint: 100
   attackRange: 5
   mainTarget: {fileID: 7569015603566371091, guid: 72069659d9a635547922c4268c39ca08,
     type: 3}
@@ -190,7 +190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1994460107656492061}
   - component: {fileID: 6175961753344802701}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Hbar_FG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +269,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2833564283470405255}
   - component: {fileID: 4190272040893826665}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Hbar_BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}

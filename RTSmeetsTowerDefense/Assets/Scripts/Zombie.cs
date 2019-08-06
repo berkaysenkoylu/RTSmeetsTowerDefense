@@ -16,6 +16,7 @@ public class Zombie : MonoBehaviour
     NavMeshAgent zombieAgent;
     bool canAttack = true;
     float attackRate = 1.5f;
+    [SerializeField]
     float healthPoint;
 
     ZombieAI zombieAI;
@@ -123,7 +124,7 @@ public class Zombie : MonoBehaviour
         // Attack the target
         if (canAttack)
         {
-            Debug.Log("SHRED!!!");
+            //Debug.Log("SHRED!!!");
 
             DealDamage(attackPower);
 
@@ -131,7 +132,7 @@ public class Zombie : MonoBehaviour
         }
     }
 
-    void GetDamaged(float amount)
+    public void GetDamaged(float amount)
     {
         healthPoint -= amount;
 
