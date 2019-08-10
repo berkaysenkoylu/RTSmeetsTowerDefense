@@ -5,8 +5,14 @@ using UnityEngine;
 public class WoodTower : Tower
 {
     public int woodCost = 10;
+    public GameObject projectile;
 
-    float damage;
+    [Header("Misc")]
+    public GameObject target;
+
+    float lastTimeFired;
+    float fireRate = 1f;
+    float damage; // Remove later
     float range;
 
     private void Start()
@@ -22,25 +28,42 @@ public class WoodTower : Tower
         range = maxRange;
     }
 
-    //public override IEnumerator BuildingProcess()
-    //{
-    //    Vector3 finalLocation = new Vector3(transform.position.x, 0f, transform.position.z);
-    //    Vector3 refVelocity = Vector3.zero;
+    private void Update()
+    {
+        if (isBuilt && target == null)
+            target = GetTarget(range);
+    }
 
-    //    while (!isBuilt)
-    //    {
-    //        transform.position = Vector3.SmoothDamp(transform.position, finalLocation, ref refVelocity, smoothTiming);
+    private void FixedUpdate()
+    {
+        if (target != null && Vector3.Distance(transform.position, target.transform.position) > range)
+        {
+            target = null;
+        }
 
-    //        if(Vector3.Distance(transform.position, finalLocation) <= 0.01f)
-    //        {
-    //            isBuilt = true;
-    //        }
+        if (target && !target.activeSelf)
+        {
+            target = null;
+        }
 
-    //        yield return null;
-    //    }
+        if (target && Time.time - lastTimeFired >= fireRate)
+        {
+            Fire();
+        }
+    }
 
-    //    yield return new WaitForSeconds(1.0f);
+    void Fire()
+    {
+        lastTimeFired = Time.time;
 
-    //    Debug.Log("Building has been completed!");
-    //}
+        GameObject bullet = Instantiate(projectile, muzzle.position, Quaternion.identity);
+
+        Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
+
+        Vector3 direction = (target.transform.position - muzzle.position).normalized;
+
+        bullet.transform.LookAt(target.transform.position);
+
+        bulletRb.AddForce(direction * bullet.GetComponent<WoodProjectile>().speed);
+    }
 }

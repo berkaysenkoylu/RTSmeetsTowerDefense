@@ -39,4 +39,44 @@ public class Tower : MonoBehaviour
 
         Debug.Log("Building has been completed!");
     }
+
+    public virtual GameObject GetTarget(float range)
+    {
+        GameObject target = null;
+
+        // Get all the targets in a certain range
+        Vector3 sphereOrigin = new Vector3(transform.position.x, 0f, transform.position.z);
+        Collider[] possibleTargets = Physics.OverlapSphere(sphereOrigin, range, zombieLayer);
+
+        if (possibleTargets.Length <= 0f)
+        {
+            return target;
+        }
+
+        // Find the closest one amongst them, and set the target to it
+        target = GetClosestTarget(possibleTargets);
+
+        return target;
+    }
+
+    GameObject GetClosestTarget(Collider[] possibleTargetColliders)
+    {
+        GameObject closestTarget = possibleTargetColliders[0].gameObject;
+
+        float distance = Vector3.Distance(transform.position, possibleTargetColliders[0].transform.position);
+
+        for (int i = 1; i < possibleTargetColliders.Length; i++)
+        {
+            float currDistance = Vector3.Distance(transform.position, possibleTargetColliders[i].transform.position);
+
+            if (currDistance < distance && possibleTargetColliders[i].gameObject.activeSelf)
+            {
+                distance = currDistance;
+
+                closestTarget = possibleTargetColliders[i].gameObject;
+            }
+        }
+
+        return closestTarget;
+    }
 }

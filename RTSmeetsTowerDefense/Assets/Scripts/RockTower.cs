@@ -50,7 +50,7 @@ public class RockTower : Tower
         }
 
         if (isBuilt && target == null)
-            SetTarget();
+            target = GetTarget(range);
 
         if (target && Time.time - lastTimeFired >= fireRate && IsFacingTarget())
         {
@@ -92,41 +92,41 @@ public class RockTower : Tower
         return Vector3.Angle(dir, cannon.forward) <= 0.5f;
     }
 
-    void SetTarget()
-    {
-        // Get all the targets in a certain range
-        Vector3 sphereOrigin = new Vector3(transform.position.x, 0f, transform.position.z);
-        Collider[] possibleTargets = Physics.OverlapSphere(sphereOrigin, range, zombieLayer);
+    //void SetTarget()
+    //{
+    //    // Get all the targets in a certain range
+    //    Vector3 sphereOrigin = new Vector3(transform.position.x, 0f, transform.position.z);
+    //    Collider[] possibleTargets = Physics.OverlapSphere(sphereOrigin, range, zombieLayer);
 
-        if (possibleTargets.Length <= 0f)
-        {
-            return;
-        }
+    //    if (possibleTargets.Length <= 0f)
+    //    {
+    //        return;
+    //    }
 
-        // Find the closest one amongst them, and set the target to it
-        target = GetClosestTarget(possibleTargets);
-    }
+    //    // Find the closest one amongst them, and set the target to it
+    //    target = GetClosestTarget(possibleTargets);
+    //}
 
-    GameObject GetClosestTarget(Collider[] possibleTargetColliders)
-    {
-        GameObject closestTarget = possibleTargetColliders[0].gameObject;
+    //GameObject GetClosestTarget(Collider[] possibleTargetColliders)
+    //{
+    //    GameObject closestTarget = possibleTargetColliders[0].gameObject;
 
-        float distance = Vector3.Distance(transform.position, possibleTargetColliders[0].transform.position);
+    //    float distance = Vector3.Distance(transform.position, possibleTargetColliders[0].transform.position);
 
-        for (int i = 1; i < possibleTargetColliders.Length; i++)
-        {
-            float currDistance = Vector3.Distance(transform.position, possibleTargetColliders[i].transform.position);
+    //    for (int i = 1; i < possibleTargetColliders.Length; i++)
+    //    {
+    //        float currDistance = Vector3.Distance(transform.position, possibleTargetColliders[i].transform.position);
 
-            if (currDistance < distance && possibleTargetColliders[i].gameObject.activeSelf)
-            {
-                distance = currDistance;
+    //        if (currDistance < distance && possibleTargetColliders[i].gameObject.activeSelf)
+    //        {
+    //            distance = currDistance;
 
-                closestTarget = possibleTargetColliders[i].gameObject;
-            }
-        }
+    //            closestTarget = possibleTargetColliders[i].gameObject;
+    //        }
+    //    }
 
-        return closestTarget;
-    }
+    //    return closestTarget;
+    //}
 
     void Fire()
     {
