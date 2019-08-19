@@ -127,3 +127,5 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   speed: 200
+  explosionEffect: {fileID: 7314640447899682604, guid: c2088daabc886c342bcb283e40f8e7d6,
+    type: 3}

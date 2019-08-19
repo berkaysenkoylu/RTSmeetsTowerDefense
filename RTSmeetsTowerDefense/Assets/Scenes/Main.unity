@@ -6781,6 +6781,8 @@ MonoBehaviour:
   - {fileID: 1608406947}
   zombieContainer: {fileID: 1655029433}
   initialSpawnCooldown: 3
+  zombieDeathEffect: {fileID: 325830403161493929, guid: e74ea66c0d3dfeb42acaffe157620fdb,
+    type: 3}
   canSpawn: 0
 --- !u!4 &440995908
 Transform:

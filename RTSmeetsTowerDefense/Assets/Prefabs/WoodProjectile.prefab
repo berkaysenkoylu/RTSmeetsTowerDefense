@@ -78,6 +78,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 200
   damage: 20
+  bloodSplatterEffect: {fileID: 1130233612395412053, guid: a6d945957c86fe14bb0e29605bbb85aa,
+    type: 3}
 --- !u!1001 &4355247493999059541
 PrefabInstance:
   m_ObjectHideFlags: 0

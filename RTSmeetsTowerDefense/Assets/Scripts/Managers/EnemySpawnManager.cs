@@ -9,6 +9,7 @@ public class EnemySpawnManager : MonoBehaviour
     public Transform[] spawnTransforms;
     public GameObject zombieContainer;
     public float initialSpawnCooldown = 3f;
+    public GameObject zombieDeathEffect;
     Queue<GameObject> zombieQueue = new Queue<GameObject>();
 
     [SerializeField]
@@ -92,6 +93,8 @@ public class EnemySpawnManager : MonoBehaviour
     public void AddZombieToPool(GameObject zombie)
     {
         zombie.SetActive(false);
+
+        Instantiate(zombieDeathEffect, zombie.transform.position, Quaternion.identity);
 
         zombieQueue.Enqueue(zombie);
         //foreach(GameObject deactiveZomboi in zombieQueue.ToArray())

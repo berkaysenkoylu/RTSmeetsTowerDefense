@@ -8,6 +8,7 @@ public class CannonBall : MonoBehaviour
     public float damage = 40f;
     public LayerMask zombieMask;
     public float speed = 10f;
+    public GameObject explosionEffect;
 
     float lifetime = 2f;
 
@@ -20,6 +21,8 @@ public class CannonBall : MonoBehaviour
     {
         if(collision.gameObject.tag == "Zombie" || collision.gameObject.layer == 9)
         {
+            Instantiate(explosionEffect, collision.GetContact(0).point, Quaternion.identity);
+
             SplashDamage(collision.GetContact(0).point);
         }
     }
