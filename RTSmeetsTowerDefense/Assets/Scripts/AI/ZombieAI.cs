@@ -125,6 +125,7 @@ public class ZombieAI : MonoBehaviour
             if (!self.getCanAttack())
             {
                 //Debug.Log("Preparing to attack");
+                self.gameObject.GetComponent<Animator>().SetTrigger("idleTrigger"); // ??
                 return NodeStatus.RUNNING;
             } 
             else

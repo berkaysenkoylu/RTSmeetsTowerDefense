@@ -69,7 +69,7 @@ public class Zombie : MonoBehaviour
             canAttack = true;
         }
 
-
+        // To be removed later
         if (Input.GetKeyDown(KeyCode.E))
         {
             GetDamaged(10f);
@@ -126,7 +126,9 @@ public class Zombie : MonoBehaviour
         {
             //Debug.Log("SHRED!!!");
 
-            DealDamage(attackPower);
+            GetComponent<Animator>().SetTrigger("Melee");
+
+            //DealDamage(attackPower);
 
             canAttack = false;
         }
@@ -153,5 +155,12 @@ public class Zombie : MonoBehaviour
         healthBar.transform.GetChild(1).transform.localScale = new Vector3(xScale, 1f, 1f);
 
         healthBar.transform.GetChild(1).transform.localPosition = new Vector3(1f - xScale, 0f, 0f);
+    }
+
+    // This function is called during melee attack animation
+    // (When it hits 40ish frame)
+    public void ZombieDealsDamage()
+    {
+        DealDamage(attackPower);
     }
 }
