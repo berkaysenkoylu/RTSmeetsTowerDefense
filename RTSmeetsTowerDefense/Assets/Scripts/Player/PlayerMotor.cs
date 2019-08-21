@@ -14,6 +14,8 @@ public class PlayerMotor : MonoBehaviour
     bool isGoingToCollectResource = false; // A flag to show if player is going to collect the resource
 
     public GameObject targetResource; // Reference for target resource
+    public AnimationClip[] animClips;
+    public GameObject[] tools;
 
     void Start()
     {
@@ -120,7 +122,7 @@ public class PlayerMotor : MonoBehaviour
     }
 
     // Function to handle resource collection
-    // TODO: Add animation transitions
+    // TODO: Add animation transitions (WIP)
     public IEnumerator CollectResource()
     {
         Debug.Log("Collecting the resource");
@@ -132,9 +134,20 @@ public class PlayerMotor : MonoBehaviour
         isCollecting = true;
 
         // TODO: Handle correct animation transitions here, depending on what kind of resource is being collected
+        switch (harvestedResource.resourceName)
+        {
+            case "Log":
+                yield return new WaitForSeconds(1.5f);
+                break;
+            case "Rock":
+                tools[0].SetActive(true);
+                animator.SetTrigger("isMining");
+                yield return new WaitForSeconds(animClips[0].length);
+                break;
+        }
 
         // Wait for a while (preferably the duration of the associated resource collection animation)
-        yield return new WaitForSeconds(1.5f);
+        //yield return null;
 
         Debug.Log("Collected the resource: " + targetResource.tag);
 
@@ -142,13 +155,14 @@ public class PlayerMotor : MonoBehaviour
         playerInventory.IncrementItemInInventory(harvestedResource.resourceName,
                                                  harvestedResource.resourceYield);
 
-        
-
         // Having collected the resource, set isCollecting to false
         isCollecting = false;
 
         // Call the function 'ResetTargetResource', to reset the resource collection process
         ResetTargetResource();
+
+        foreach (GameObject tool in tools)
+            tool.SetActive(false);
     }
     #endregion
 }
