@@ -240,6 +240,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   muzzle: {fileID: 3367687063566748243}
+  buildingEffect: {fileID: 2541657572282579751, guid: df1c1c341b8b39f4c8b96898ce5c1124,
+    type: 3}
   rockCost: 10
   target: {fileID: 0}
   head: {fileID: 743659251269539608}

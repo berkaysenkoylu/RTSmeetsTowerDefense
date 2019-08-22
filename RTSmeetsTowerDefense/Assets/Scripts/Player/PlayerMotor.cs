@@ -133,21 +133,26 @@ public class PlayerMotor : MonoBehaviour
         // Set is collecting true
         isCollecting = true;
 
-        // TODO: Handle correct animation transitions here, depending on what kind of resource is being collected
+        // TODO: (WIP) Handle correct animation transitions here, depending on what kind of resource is being collected
         switch (harvestedResource.resourceName)
         {
             case "Log":
-                yield return new WaitForSeconds(1.5f);
+                tools[0].SetActive(true);
+                animator.SetTrigger("isChopping");
+                yield return new WaitForSeconds(animClips[0].length);
                 break;
             case "Rock":
-                tools[0].SetActive(true);
+                tools[1].SetActive(true);
                 animator.SetTrigger("isMining");
-                yield return new WaitForSeconds(animClips[0].length);
+                yield return new WaitForSeconds(animClips[1].length);
+                break;
+            default:
+                Debug.Log("Wrong resource type!");
                 break;
         }
 
-        // Wait for a while (preferably the duration of the associated resource collection animation)
-        //yield return null;
+        // Wait for a while
+        yield return new WaitForSeconds(0.5f);
 
         Debug.Log("Collected the resource: " + targetResource.tag);
 
@@ -161,6 +166,7 @@ public class PlayerMotor : MonoBehaviour
         // Call the function 'ResetTargetResource', to reset the resource collection process
         ResetTargetResource();
 
+        // Deactivate the tools
         foreach (GameObject tool in tools)
             tool.SetActive(false);
     }

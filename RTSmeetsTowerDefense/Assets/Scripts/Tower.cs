@@ -12,6 +12,7 @@ public class Tower : MonoBehaviour
     public float maxRange;
     public LayerMask zombieLayer;
     public Transform muzzle;
+    public GameObject buildingEffect;
 
     public virtual void Init()
     {
@@ -22,6 +23,7 @@ public class Tower : MonoBehaviour
     {
         Vector3 finalLocation = new Vector3(transform.position.x, 0f, transform.position.z);
         Vector3 refVelocity = Vector3.zero;
+        GameObject buildEffect = Instantiate(buildingEffect, finalLocation, Quaternion.identity);
 
         while (!isBuilt)
         {
@@ -34,6 +36,8 @@ public class Tower : MonoBehaviour
 
             yield return null;
         }
+
+        Destroy(buildEffect);
 
         yield return new WaitForSeconds(1.0f);
 

@@ -10,6 +10,7 @@ public class Resource : MonoBehaviour
     public int resourceYield; // Variable for yield of the resource (How many more player will have after having harvested the resource)
 
     public Texture2D cursorTexture;
+    public Animator flickerController;
 
     private void OnMouseOver()
     {
@@ -19,5 +20,10 @@ public class Resource : MonoBehaviour
     private void OnMouseExit()
     {
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+    }
+
+    public void HighlightResource()
+    {
+        flickerController.SetTrigger("isFlickering");
     }
 }

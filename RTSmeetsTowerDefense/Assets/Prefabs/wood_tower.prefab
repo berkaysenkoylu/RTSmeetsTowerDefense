@@ -68,6 +68,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   muzzle: {fileID: 2387149984229740126}
+  buildingEffect: {fileID: 2541657572282579751, guid: d3e1d95ec392b3d4c9fe879939e0decf,
+    type: 3}
   woodCost: 10
   projectile: {fileID: 3434927898778857084, guid: b2b2a1a8239028a4d9c2f243493fe9ac,
     type: 3}

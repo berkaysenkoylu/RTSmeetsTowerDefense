@@ -52,8 +52,10 @@ public class PlayerController : MonoBehaviour
                 // If the ray hits on an object whose layer is 'Resource'
                 if (hit.collider.gameObject.layer == 10)
                 {
+                    hit.collider.gameObject.GetComponent<Resource>().HighlightResource();
+
                     // Check the distance; if close enough, start resource collection (see PlayerMotor.cs' Update() method) 
-                    if(Vector3.Distance(transform.position, hit.point) <= 2.0f)
+                    if (Vector3.Distance(transform.position, hit.point) <= 2.0f)
                     {
                         Debug.Log("Close enough");
 
