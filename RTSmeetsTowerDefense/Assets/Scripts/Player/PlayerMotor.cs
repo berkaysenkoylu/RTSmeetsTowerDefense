@@ -28,7 +28,7 @@ public class PlayerMotor : MonoBehaviour
     void Update()
     {
         // Check if the remaining distance of the navmesh agent is smaller than a certain threshold
-        if(agent.remainingDistance <= 0.25f)
+        if(agent.remainingDistance <= 0.4f) // TODO: tweak this offset
         {
             // If so, then set the moving false. Since this implies, the destination has been reached
             isMoving = false;

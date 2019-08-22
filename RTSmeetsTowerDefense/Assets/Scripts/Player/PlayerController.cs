@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
                     hit.collider.gameObject.GetComponent<Resource>().HighlightResource();
 
                     // Check the distance; if close enough, start resource collection (see PlayerMotor.cs' Update() method) 
-                    if (Vector3.Distance(transform.position, hit.point) <= 2.0f)
+                    if (Vector3.Distance(transform.position, hit.point) <= 1.0f)
                     {
                         Debug.Log("Close enough");
 
