@@ -6,17 +6,18 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public Sprite[] resourceIcons; // An array to keep the sprites to use as icons of resources in individual resource GUI
-    public GameObject resource; // Prefab that represents resource: Icon (raw image): Amount (text)
+    //public Sprite[] resourceIcons; // An array to keep the sprites to use as icons of resources in individual resource GUI
+    //public GameObject resource; // Prefab that represents resource: Icon (raw image): Amount (text)
 
     public Slider dayTimeSlider;
     public Sprite[] dayTimeSprites;
     public Image background;
     public Image fillImage;
 
-    List<GameObject> resourceGUIContainer; // List to hold all the resource GUI prefabs (to be used while updating the values)
+    //List<GameObject> resourceGUIContainer; // List to hold all the resource GUI prefabs (to be used while updating the values)
     PlayerInventory playerInventoryScript; // Reference for player inventory script
     Inventory playerInventory; // Reference for player inventory
+    GameObject[] resourceGUIElements;
 
     void Start()
     {
@@ -31,7 +32,7 @@ public class UIManager : MonoBehaviour
         playerInventory = playerInventoryScript.GetInventory();
 
         // Initialize the list: resourceGUIContainer
-        resourceGUIContainer = new List<GameObject>();
+        //resourceGUIContainer = new List<GameObject>();
 
         // Call the function InitializeResourcesUI() to create the resource GUI
         InitializeResourcesUI();
@@ -43,46 +44,56 @@ public class UIManager : MonoBehaviour
     // Function for initializing the resource GUI
     void InitializeResourcesUI()
     {
+        resourceGUIElements = new GameObject[transform.childCount];
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            // ZombieQueue is a pool that includes all the inactive zombies
+            resourceGUIElements[i] = transform.GetChild(i).gameObject;
+        }
+
+        UpdateResourceGUI();
+
         // Iterate each Inventory.ResourceTypes, int pair in the dictionary residing in player inventory,
         // and create a resource GUI for each one of them
-        foreach (KeyValuePair<Inventory.ResourceTypes, int> resource in playerInventory.GetInventoryContent())
-        {
-            CreateResourceGUI(resource.Key, resource.Value);
-        }
+        //foreach (KeyValuePair<Inventory.ResourceTypes, int> resource in playerInventory.GetInventoryContent())
+        //{
+        //    CreateResourceGUI(resource.Key, resource.Value);
+        //}
     }
 
     // Function to create individual resource GUI element
-    void CreateResourceGUI(Inventory.ResourceTypes type, int amount)
-    {
-        // Instantiate the prefab
-        GameObject newResource = Instantiate(resource);
+    //void CreateResourceGUI(Inventory.ResourceTypes type, int amount)
+    //{
+    //    // Instantiate the prefab
+    //    GameObject newResource = Instantiate(resource);
 
-        // Set its parent to this transform
-        newResource.transform.SetParent(transform);
+    //    // Set its parent to this transform
+    //    newResource.transform.SetParent(transform);
 
-        // Change its name. Using enum to string would be a good idea here
-        // We can then reverse it to get the 'Inventory.ResourceTypes' enum if need be
-        newResource.name = type.ToString();
+    //    // Change its name. Using enum to string would be a good idea here
+    //    // We can then reverse it to get the 'Inventory.ResourceTypes' enum if need be
+    //    newResource.name = type.ToString();
 
-        // Depending on the resource type, put appropriate icon image, and corresponding amount
-        switch (type)
-        {
-            case Inventory.ResourceTypes.log:
-                newResource.GetComponentInChildren<RawImage>().texture = resourceIcons[0].texture;
-                newResource.GetComponentInChildren<Text>().text = amount.ToString();
-                break;
-            case Inventory.ResourceTypes.rock:
-                newResource.GetComponentInChildren<RawImage>().texture = resourceIcons[1].texture;
-                newResource.GetComponentInChildren<Text>().text = amount.ToString();
-                break;
-            default:
-                break;
-        }
+    //    // Depending on the resource type, put appropriate icon image, and corresponding amount
+    //    switch (type)
+    //    {
+    //        case Inventory.ResourceTypes.log:
+    //            newResource.GetComponentInChildren<RawImage>().texture = resourceIcons[0].texture;
+    //            newResource.GetComponentInChildren<Text>().text = amount.ToString();
+    //            break;
+    //        case Inventory.ResourceTypes.rock:
+    //            newResource.GetComponentInChildren<RawImage>().texture = resourceIcons[1].texture;
+    //            newResource.GetComponentInChildren<Text>().text = amount.ToString();
+    //            break;
+    //        default:
+    //            break;
+    //    }
 
-        // Add this newly created resource GUI element to resourceGUIContainer list
-        // We can then iterate through this list to update the resource amounts
-        resourceGUIContainer.Add(newResource);
-    }
+    //    // Add this newly created resource GUI element to resourceGUIContainer list
+    //    // We can then iterate through this list to update the resource amounts
+    //    resourceGUIContainer.Add(newResource);
+    //}
 
     // Function for updating the resource GUI elements. This function will be called
     //  when 'Resource amount changed' event is triggered.
@@ -94,14 +105,37 @@ public class UIManager : MonoBehaviour
         // Populate the inventoryContents dictionary by calling the GetInventoryContent() method from PlayerInventory.cs
         inventoryContents = playerInventory.GetInventoryContent();
 
-        // Iterate through resourceGUIContainer list
-        foreach (GameObject resGUI in resourceGUIContainer)
-        {
-            // Convert resourceGUI element's name to Inventory.ResourceTypes enum type
-            Inventory.ResourceTypes type = (Inventory.ResourceTypes)Enum.Parse(typeof(Inventory.ResourceTypes), resGUI.name);
+        //// Iterate through resourceGUIContainer list
+        //foreach (GameObject resGUI in resourceGUIContainer)
+        //{
+        //    // Convert resourceGUI element's name to Inventory.ResourceTypes enum type
+        //    Inventory.ResourceTypes type = (Inventory.ResourceTypes)Enum.Parse(typeof(Inventory.ResourceTypes), resGUI.name);
 
-            // Update the resourceGUI element's amount
-            resGUI.GetComponentInChildren<Text>().text = inventoryContents[type].ToString();
+        //    // Update the resourceGUI element's amount
+        //    resGUI.GetComponentInChildren<Text>().text = inventoryContents[type].ToString();
+        //}
+
+        foreach(GameObject resGUI in resourceGUIElements)
+        {
+            Inventory.ResourceTypes type = (Inventory.ResourceTypes)Enum.Parse(typeof(Inventory.ResourceTypes), "log");
+
+            switch (resGUI.name)
+            {
+                case "LogGUI":
+                    // Convert resourceGUI element's name to Inventory.ResourceTypes enum type
+                    type = (Inventory.ResourceTypes)Enum.Parse(typeof(Inventory.ResourceTypes), "log");
+                    // Update the resourceGUI element's amount
+                    resGUI.GetComponentInChildren<Text>().text = inventoryContents[type].ToString();
+                    break;
+                case "RockGUI":
+                    // Convert resourceGUI element's name to Inventory.ResourceTypes enum type
+                    type = (Inventory.ResourceTypes)Enum.Parse(typeof(Inventory.ResourceTypes), "rock");
+                    // Update the resourceGUI element's amount
+                    resGUI.GetComponentInChildren<Text>().text = inventoryContents[type].ToString();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
