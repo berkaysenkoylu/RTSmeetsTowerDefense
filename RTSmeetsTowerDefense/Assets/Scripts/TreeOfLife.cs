@@ -8,8 +8,12 @@ public class TreeOfLife : MonoBehaviour
     public float maxHealthPoint = 200f;
     //public GameObject healthBar;
     public Slider healthBar;
+    public GameObject deathEffect;
 
     float healthPoint;
+
+    public delegate void GameOver();
+    public static event GameOver onGameOver;
 
     void Start()
     {
@@ -32,7 +36,20 @@ public class TreeOfLife : MonoBehaviour
     {
         healthPoint -= amount;
 
+        healthPoint = Mathf.Clamp(healthPoint, 0f, maxHealthPoint);
+
         UpdateHealthBar(healthPoint);
+
+        if (healthPoint <= 0f)
+        {
+            onGameOver();
+
+            // Death
+            Instantiate(deathEffect, transform.position, Quaternion.identity);
+
+            //gameObject.SetActive(false);
+            Destroy(gameObject);
+        }
     }
 
     void UpdateHealthBar(float currentHealth)

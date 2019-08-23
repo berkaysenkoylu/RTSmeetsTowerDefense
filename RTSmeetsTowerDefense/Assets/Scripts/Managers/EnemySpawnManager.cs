@@ -52,6 +52,15 @@ public class EnemySpawnManager : MonoBehaviour
         Zombie.zombieIsDead += AddZombieToPool;
     }
 
+    private void OnDestroy()
+    {
+        Sun.canEnemiesBeSpawned -= SetCanSpawn;
+
+        Sun.dayCountIncreased -= UpdateSpawnCooldown;
+
+        Zombie.zombieIsDead -= AddZombieToPool;
+    }
+
     void Update()
     {
         if (canSpawn && Time.time - spawningCooldown >= lastTimeSpawned)

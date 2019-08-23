@@ -41,6 +41,11 @@ public class UIManager : MonoBehaviour
         Sun.whatTimeIsIt += UpdateDayTimeSlider;
     }
 
+    private void OnDestroy()
+    {
+        Sun.whatTimeIsIt -= UpdateDayTimeSlider;
+    }
+
     // Function for initializing the resource GUI
     void InitializeResourcesUI()
     {

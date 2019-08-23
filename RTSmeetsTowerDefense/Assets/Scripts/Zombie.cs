@@ -124,9 +124,16 @@ public class Zombie : MonoBehaviour
         // Attack the target
         if (canAttack)
         {
-            //Debug.Log("SHRED!!!");
-
-            GetComponent<Animator>().SetTrigger("Melee");
+            // Decide what attack will be done
+            float decision = Random.Range(0f, 1f);
+            if(decision >= 0.5f)
+            {
+                GetComponent<Animator>().SetTrigger("Melee");
+            }
+            else
+            {
+                GetComponent<Animator>().SetTrigger("Swipe");
+            }
 
             //DealDamage(attackPower);
 
@@ -158,9 +165,20 @@ public class Zombie : MonoBehaviour
     }
 
     // This function is called during melee attack animation
+    // and swipe attack animation with the help of animation events
     // (When it hits 40ish frame)
-    public void ZombieDealsDamage()
+    public void ZombieDealsDamage(float amount)
     {
-        DealDamage(attackPower);
+        // If amount is zero, then normal attack 
+        // Otherwise; more powerful attack
+        if (amount == 0)
+        {
+            DealDamage(attackPower);
+        }
+        else
+        {
+            DealDamage(amount);
+        }
+        
     }
 }

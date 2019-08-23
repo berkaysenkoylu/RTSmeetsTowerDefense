@@ -11,8 +11,6 @@ public class BuildManager : MonoBehaviour
 
     bool isBuildMode = false;
 
-    // TODO: Add more variant of towers later and their corresponding ghost entities
-
     public static BuildManager instance
     {
         get
@@ -36,6 +34,11 @@ public class BuildManager : MonoBehaviour
         EventManager.StartListening("AbortBuild", AbortBuilding);
 
         GhostTower.whereToBuild += BuildTower;
+    }
+
+    private void OnDestroy()
+    {
+        GhostTower.whereToBuild -= BuildTower;
     }
 
     void Update()
