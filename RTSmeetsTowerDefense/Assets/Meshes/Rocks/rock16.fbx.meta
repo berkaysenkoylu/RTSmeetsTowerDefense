@@ -3,7 +3,32 @@ guid: 59eba9e64984f5f409d3a1b48edc9a59
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rock16
+    second: {fileID: 2100000, guid: 227f8ed04b71a0b4fb538566e55821d9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rock16_hanging_leaves1
+    second: {fileID: 2100000, guid: 5a5c4b59f9ba9e7409238b8113099d36, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rock16_hanging_leaves2
+    second: {fileID: 2100000, guid: 9e1b8024d3407284493665525363f6ec, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rock16_hanging_leaves3
+    second: {fileID: 2100000, guid: 1bb09f3a0b6e432489cfeecf337c3d8b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rock16_wood
+    second: {fileID: 2100000, guid: e72bd4207788a2c4ab969a3b545ef60e, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

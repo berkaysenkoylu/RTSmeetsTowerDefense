@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7312cf938d334b847ae5b9c934e5a5d3
+guid: 04cdc7c447b921241b82911d5675ff92
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable: []
@@ -7,8 +7,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Rock1
-    second: {fileID: 2100000, guid: 4cb4afa7fc866aa4996998e4669cda01, type: 2}
+      name: tree10_leaves1
+    second: {fileID: 2100000, guid: 7485c9874afad644f80bfa535ffbfe14, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tree10_leaves2
+    second: {fileID: 2100000, guid: f86dd5cc4a50cfb41b1fc19a3db94e47, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tree10_trunk
+    second: {fileID: 2100000, guid: e1a062eb2bbeb1a408c2edcd4671b05e, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

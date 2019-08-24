@@ -30,7 +30,7 @@ public class PlayerMotor : MonoBehaviour
         // Check if the remaining distance of the navmesh agent is smaller than a certain threshold
         if(agent.remainingDistance <= 0.4f) // TODO: tweak this offset
         {
-            // If so, then set the moving false. Since this implies, the destination has been reached
+            // If so, then set the moving false. Since this implies that the destination has been reached
             isMoving = false;
 
             // Set the bools in animator to the corresponding values
@@ -39,8 +39,9 @@ public class PlayerMotor : MonoBehaviour
         }
 
         // Check if player has target resource, and the distance between the target resource and the player is less than a certain value
-        if (targetResource != null && Vector3.Distance(transform.position, targetResource.transform.position) <= 2.0f)
+        if (targetResource != null && Vector3.Distance(transform.position, targetResource.transform.position) <= 2.0f) // TODO: Tweak number
         {
+            Debug.Log(Vector3.Distance(transform.position, targetResource.transform.position));
             // Form the direction vector
             Vector3 dir = (targetResource.transform.position - transform.position).normalized;
 

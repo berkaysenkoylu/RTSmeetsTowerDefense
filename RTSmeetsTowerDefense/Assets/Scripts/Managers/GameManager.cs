@@ -56,9 +56,7 @@ public class GameManager : MonoBehaviour
         gameOverScreenAnimController.SetTrigger("gameOver");
 
         // Deactivate the necessary elements
-        enemySpawnManager.enabled = false;
-        sun.enabled = false;
-        DeactivatePlayer();
+        DeactivateElements();
     }
 
     void KillAllEnemies()
@@ -73,35 +71,36 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void DeactivatePlayer()
+    void DeactivateElements()
     {
+        enemySpawnManager.enabled = false;
+        sun.enabled = false;
         player.GetComponent<PlayerController>().enabled = false;
         player.GetComponent<PlayerMotor>().enabled = false;
     }
 
     public void RestartLevel()
     {
-        //RuntimeAnimatorController ac = gameOverScreenAnimController.runtimeAnimatorController;
+        RuntimeAnimatorController ac = gameOverScreenAnimController.runtimeAnimatorController;
 
-        //float duration = 0f;
-        //for (int i = 0; i < ac.animationClips.Length; i++)
-        //{
-        //    if(ac.animationClips[i].name == "GameOver_Restarted")
-        //    {
-        //        duration = ac.animationClips[i].length;
-        //    }
-        //}
+        float duration = 2f;
+        for (int i = 0; i < ac.animationClips.Length; i++)
+        {
+            if (ac.animationClips[i].name == "GameOver_Restarted")
+            {
+                duration = ac.animationClips[i].length;
+            }
+        }
 
-        //StartCoroutine(Restart(duration));
-        SceneManager.LoadScene("main");
+        StartCoroutine(Restart(duration));
     }
 
     IEnumerator Restart(float delay)
     {
         gameOverScreenAnimController.SetTrigger("isRestarted");
 
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(delay + 0.5f); // TODO: Tweak this?
 
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
