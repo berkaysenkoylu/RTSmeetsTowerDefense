@@ -11,6 +11,7 @@ public class Tooltip : MonoBehaviour
     public RectTransform canvasRectTransform;
 
     RectTransform rectTransform;
+    Vector3 initialPosition;
     Vector3 tooltipOffset;
     string path;
     string jsonString;
@@ -20,6 +21,13 @@ public class Tooltip : MonoBehaviour
     void Start()
     {
         rectTransform = GetComponent<RectTransform>();
+
+        initialPosition = rectTransform.position;
+    }
+
+    private void OnDisable()
+    {
+        rectTransform.position = initialPosition;
     }
 
     void Update()
@@ -83,6 +91,7 @@ public class Tooltip : MonoBehaviour
                 transform.GetChild(1).GetComponent<Text>().text = "<b>Cost: </b>" + cost.ToString() + " rocks";
                 break;
             default:
+                transform.GetChild(1).GetComponent<Text>().text = "<b>Cost: </b>" + cost.ToString();
                 Debug.Log("Check your tower type in your corresponding JSON file.");
                 break;
         }

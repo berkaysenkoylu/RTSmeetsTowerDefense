@@ -28,7 +28,7 @@ public class PlayerMotor : MonoBehaviour
     void Update()
     {
         // Check if the remaining distance of the navmesh agent is smaller than a certain threshold
-        if(agent.remainingDistance <= 0.4f) // TODO: tweak this offset
+        if (agent.remainingDistance <= 0.5f) // TODO: tweak this offset (used to be 0.4f), stopping distance of agent used to be ~1.0f
         {
             // If so, then set the moving false. Since this implies that the destination has been reached
             isMoving = false;
@@ -37,9 +37,19 @@ public class PlayerMotor : MonoBehaviour
             animator.SetBool("isWalking", isMoving);
             animator.SetBool("isIdle", !isMoving);
         }
+        //Debug.Log(Vector3.Distance(transform.position, destination));
+        //if (Vector3.Distance(transform.position, destination) <= 2.0f)
+        //{
+        //    // If so, then set the moving false. Since this implies that the destination has been reached
+        //    isMoving = false;
+
+        //    // Set the bools in animator to the corresponding values
+        //    animator.SetBool("isWalking", isMoving);
+        //    animator.SetBool("isIdle", !isMoving);
+        //}
 
         // Check if player has target resource, and the distance between the target resource and the player is less than a certain value
-        if (targetResource != null && Vector3.Distance(transform.position, targetResource.transform.position) <= 2.0f) // TODO: Tweak number
+        if (targetResource != null && Vector3.Distance(transform.position, targetResource.transform.position) <= 2.3f) // TODO: Tweak number
         {
             //Debug.Log(Vector3.Distance(transform.position, targetResource.transform.position));
             // Form the direction vector
@@ -57,6 +67,8 @@ public class PlayerMotor : MonoBehaviour
             // Check if player is going to collect the resource, and if player is already collecting or not
             if (isGoingToCollectResource && !isCollecting)
             {
+                //Debug.Log(Vector3.Distance(transform.position, targetResource.transform.position));
+                //Debug.Log(agent.remainingDistance);
                 // If satisfied, start the resource collection process
                 StartCoroutine("CollectResource");
             }
@@ -89,8 +101,23 @@ public class PlayerMotor : MonoBehaviour
 
             // Set the bools in animator correspondingly
             animator.SetBool("isWalking", isMoving);
-            animator.SetBool("isIdle", !isMoving); 
+            animator.SetBool("isIdle", !isMoving);
         }
+
+        //if(Vector3.Distance(transform.position, location) >= 1.0f)
+        //{
+        //    // Set the agent destination to that point
+        //    agent.SetDestination(location);
+
+        //    destination = location;
+
+        //    // Set the isMoving flag to true
+        //    isMoving = true;
+
+        //    // Set the bools in animator correspondingly
+        //    animator.SetBool("isWalking", isMoving);
+        //    animator.SetBool("isIdle", !isMoving);
+        //}
     }
 
     #region Resource Collection Related
