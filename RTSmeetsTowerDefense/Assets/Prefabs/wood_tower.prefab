@@ -62,7 +62,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isBuilt: 0
   smoothTiming: 1
-  damageAmount: 5
+  damageAmount: 20
   maxRange: 7
   zombieLayer:
     serializedVersion: 2

@@ -5,7 +5,7 @@ using UnityEngine;
 public class WoodProjectile : MonoBehaviour
 {
     public float speed = 10f;
-    public float damage = 10f;
+    public float damage = 20f;
     public GameObject bloodSplatterEffect;
 
     float lifetime = 2f;
@@ -32,5 +32,10 @@ public class WoodProjectile : MonoBehaviour
 
             other.gameObject.GetComponent<Zombie>().GetDamaged(damage);
         }
+    }
+
+    public void SetDamage(float amount)
+    {
+        damage = amount;
     }
 }

@@ -41,7 +41,7 @@ public class PlayerMotor : MonoBehaviour
         // Check if player has target resource, and the distance between the target resource and the player is less than a certain value
         if (targetResource != null && Vector3.Distance(transform.position, targetResource.transform.position) <= 2.0f) // TODO: Tweak number
         {
-            Debug.Log(Vector3.Distance(transform.position, targetResource.transform.position));
+            //Debug.Log(Vector3.Distance(transform.position, targetResource.transform.position));
             // Form the direction vector
             Vector3 dir = (targetResource.transform.position - transform.position).normalized;
 

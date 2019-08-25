@@ -12,7 +12,7 @@ public class WoodTower : Tower
 
     float lastTimeFired;
     float fireRate = 1f;
-    float damage; // Remove later
+    float damage; // Remove later (leave it maybe??)
     float range;
 
     private void Start()
@@ -59,6 +59,8 @@ public class WoodTower : Tower
         GameObject bullet = Instantiate(projectile, muzzle.position, Quaternion.identity);
 
         Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
+
+        bullet.GetComponent<WoodProjectile>().SetDamage(damage);
 
         Vector3 direction = (target.transform.position - muzzle.position).normalized;
 
