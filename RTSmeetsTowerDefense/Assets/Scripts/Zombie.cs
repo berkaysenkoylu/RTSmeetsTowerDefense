@@ -11,7 +11,9 @@ public class Zombie : MonoBehaviour
     public GameObject mainTarget;
     public float attackPower = 10f;
     public GameObject healthBar;
+    public AudioClip meleeAttackSound;
 
+    AudioSource zombieAudioSource;
     Vector3 targetPosition;
     NavMeshAgent zombieAgent;
     bool canAttack = true;
@@ -41,6 +43,8 @@ public class Zombie : MonoBehaviour
     void Start()
     {
         zombieAgent = GetComponent<NavMeshAgent>();
+
+        zombieAudioSource = GetComponent<AudioSource>();
 
         //zombieBT = zombieAI.CreateBehaviorTree(this);
     }
@@ -169,6 +173,8 @@ public class Zombie : MonoBehaviour
     // (When it hits 40ish frame)
     public void ZombieDealsDamage(float amount)
     {
+        zombieAudioSource.PlayOneShot(meleeAttackSound);
+
         // If amount is zero, then normal attack 
         // Otherwise; more powerful attack
         if (amount == 0)
@@ -179,6 +185,5 @@ public class Zombie : MonoBehaviour
         {
             DealDamage(amount);
         }
-        
     }
 }

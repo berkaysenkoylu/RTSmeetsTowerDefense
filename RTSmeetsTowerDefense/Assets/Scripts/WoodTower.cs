@@ -14,10 +14,13 @@ public class WoodTower : Tower
     float fireRate = 1f;
     float damage; // Remove later (leave it maybe??)
     float range;
+    AudioSource audioSource;
 
     private void Start()
     {
         Init();
+
+        audioSource = GetComponent<AudioSource>();
 
         StartCoroutine("BuildingProcess");
     }
@@ -65,6 +68,8 @@ public class WoodTower : Tower
         Vector3 direction = (target.transform.position - muzzle.position).normalized;
 
         bullet.transform.LookAt(target.transform.position);
+
+        audioSource.Play();
 
         bulletRb.AddForce(direction * bullet.GetComponent<WoodProjectile>().speed);
     }

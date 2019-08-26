@@ -5,14 +5,18 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public LayerMask layerMask; // Layer mask for the ground (walkable navmesh)
+    public AudioClip[] resourceCollectionSounds;
 
     Camera mainCam; // Reference for main camera (used for ray casting)
     PlayerMotor playerMotor; // Reference for player motor script
+    AudioSource audioSource;
 
     void Start()
     {
         // Set the reference for player motor script
         playerMotor = GetComponent<PlayerMotor>();
+
+        audioSource = GetComponent<AudioSource>();
 
         // Set reference for main camera in the scene
         mainCam = Camera.main;
@@ -89,6 +93,22 @@ public class PlayerController : MonoBehaviour
                     playerMotor.GoToLocation(hit.point);
                 }
             }
+        }
+    }
+
+    public void PlayResourceCollectionSound(string action)
+    {
+        switch (action)
+        {
+            case "chopping":
+                audioSource.PlayOneShot(resourceCollectionSounds[0]);
+                break;
+            case "mining":
+                audioSource.PlayOneShot(resourceCollectionSounds[1]);
+                break;
+            default:
+                Debug.Log("Make sure to index a action parameter to animation events.");
+                break;
         }
     }
 }

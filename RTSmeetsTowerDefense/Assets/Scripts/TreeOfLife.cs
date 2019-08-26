@@ -9,8 +9,10 @@ public class TreeOfLife : MonoBehaviour
     //public GameObject healthBar;
     public Slider healthBar;
     public GameObject deathEffect;
+    public AudioClip getHitSound;
 
     float healthPoint;
+    AudioSource audioSource;
 
     public delegate void GameOver();
     public static event GameOver onGameOver;
@@ -18,6 +20,8 @@ public class TreeOfLife : MonoBehaviour
     void Start()
     {
         healthPoint = maxHealthPoint;
+
+        audioSource = GetComponent<AudioSource>();
 
         Zombie.DealDamage += GetDamaged;
     }
@@ -37,6 +41,8 @@ public class TreeOfLife : MonoBehaviour
         healthPoint -= amount;
 
         healthPoint = Mathf.Clamp(healthPoint, 0f, maxHealthPoint);
+
+        audioSource.PlayOneShot(getHitSound);
 
         UpdateHealthBar(healthPoint);
 

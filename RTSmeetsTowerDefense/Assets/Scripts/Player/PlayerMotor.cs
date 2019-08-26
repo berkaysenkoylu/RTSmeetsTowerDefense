@@ -119,7 +119,6 @@ public class PlayerMotor : MonoBehaviour
         //    animator.SetBool("isIdle", !isMoving);
         //}
     }
-
     #region Resource Collection Related
     // Function for setting the target resource
     public void SetTargetResource(GameObject newTarget)
