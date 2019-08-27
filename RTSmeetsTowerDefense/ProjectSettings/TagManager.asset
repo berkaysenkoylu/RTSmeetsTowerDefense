@@ -9,6 +9,7 @@ TagManager:
   - WoodGhost
   - RockGhost
   - Zombie
+  - PostProcessing
   layers:
   - Default
   - TransparentFX
