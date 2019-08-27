@@ -12,18 +12,44 @@ public class Resource : MonoBehaviour
     public Texture2D cursorTexture;
     public Animator flickerController;
 
+    bool canGiveVisualFeedback = true;
+
+    private void Start()
+    {
+        GhostTower.ghostActivated += CanChangeCursor;
+    }
+
+    private void OnDestroy()
+    {
+        GhostTower.ghostActivated -= CanChangeCursor;
+    }
+
+    void CanChangeCursor(bool canChange)
+    {
+        canGiveVisualFeedback = canChange;
+    }
+
     private void OnMouseOver()
     {
+        if (!canGiveVisualFeedback)
+            return;
+
         Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
     }
 
     private void OnMouseExit()
     {
+        if (!canGiveVisualFeedback)
+            return;
+
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 
     public void HighlightResource()
     {
+        if (!canGiveVisualFeedback)
+            return;
+
         flickerController.SetTrigger("isFlickering");
     }
 }

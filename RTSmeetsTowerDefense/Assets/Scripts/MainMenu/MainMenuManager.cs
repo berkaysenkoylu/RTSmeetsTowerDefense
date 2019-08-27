@@ -15,7 +15,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void OpenTutorial()
     {
-
+        StartCoroutine(SceneTransitionProcess("isGameStarted", "Tutorial"));
     }
 
     public void Exit()

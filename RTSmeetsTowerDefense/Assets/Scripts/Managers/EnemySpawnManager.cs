@@ -117,9 +117,6 @@ public class EnemySpawnManager : MonoBehaviour
         // Take a zombie from the pool (queue)
         GameObject zombie = zombieQueue.Dequeue();
 
-        // Activate the object
-        zombie.SetActive(true);
-
         // Get a random index
         int randomIndex = Random.Range(0, spawnTransforms.Length);
 
@@ -128,6 +125,9 @@ public class EnemySpawnManager : MonoBehaviour
 
         // Set the zombie location to spawn location
         zombie.transform.position = new Vector3(spawnLocation.x, zombie.transform.position.y, spawnLocation.z);
+
+        // Activate the object
+        zombie.SetActive(true);
 
         lastTimeSpawned = Time.time;
     }

@@ -18,11 +18,24 @@ public class GhostTower : MonoBehaviour
     public delegate void PositionToBuildDeclaration(Vector3 position, string towerType);
     public static event PositionToBuildDeclaration whereToBuild;
 
+    public delegate void BuildingGhostActivated(bool ghostActive);
+    public static event BuildingGhostActivated ghostActivated;
+
     void Start()
     {
         ghostTowerMaterial = GetComponent<MeshRenderer>().material;
 
         buildManager = FindObjectOfType<BuildManager>();
+    }
+
+    private void OnEnable()
+    {
+        ghostActivated(false);
+    }
+
+    private void OnDisable()
+    {
+        ghostActivated(true);
     }
 
     void Update()

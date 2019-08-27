@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
         if(mainCam == null)
         {
             Debug.Log("Label your main camera correctly, or add a camera if there is a lack thereof!");
-        } 
+        }
     }
 
     void Update()
@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
                 // If player is collecting a resource, do nothing
                 if (playerMotor.IsPlayerCollecting())
                     return;
-                
+
                 // If the ray hits on an object whose layer is 'Resource'
                 if (hit.collider.gameObject.layer == 10)
                 {

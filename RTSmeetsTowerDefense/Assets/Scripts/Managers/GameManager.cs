@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
         player.GetComponent<PlayerMotor>().enabled = false;
     }
 
-    public void RestartLevel()
+    public void OpenLevel(string sceneName)
     {
         RuntimeAnimatorController ac = gameOverScreenAnimController.runtimeAnimatorController;
 
@@ -92,15 +92,20 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        StartCoroutine(Restart(duration));
+        StartCoroutine(OpenScene(duration, sceneName));
     }
 
-    IEnumerator Restart(float delay)
+    IEnumerator OpenScene(float delay, string sceneName)
     {
         gameOverScreenAnimController.SetTrigger("isRestarted");
 
         yield return new WaitForSeconds(delay + 0.5f); // TODO: Tweak this?
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(sceneName);
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }

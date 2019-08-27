@@ -160,7 +160,7 @@ MonoBehaviour:
   isBuilt: 0
   smoothTiming: 1
   damageAmount: 20
-  maxRange: 7
+  maxRange: 12
   zombieLayer:
     serializedVersion: 2
     m_Bits: 2048
