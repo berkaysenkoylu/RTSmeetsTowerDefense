@@ -34,7 +34,7 @@ public class Resource : MonoBehaviour
         if (!canGiveVisualFeedback)
             return;
 
-        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.ForceSoftware);
     }
 
     private void OnMouseExit()
@@ -42,7 +42,7 @@ public class Resource : MonoBehaviour
         if (!canGiveVisualFeedback)
             return;
 
-        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
     }
 
     public void HighlightResource()

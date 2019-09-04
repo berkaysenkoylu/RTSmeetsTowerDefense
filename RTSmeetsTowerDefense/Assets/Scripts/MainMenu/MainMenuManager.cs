@@ -10,7 +10,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void PlayGame()
     {
-        StartCoroutine(SceneTransitionProcess("isGameStarted", "Main"));
+        StartCoroutine(SceneTransitionProcess("isGameStarted", "Main1"));
     }
 
     public void OpenTutorial()

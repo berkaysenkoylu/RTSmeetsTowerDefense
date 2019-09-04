@@ -209,6 +209,10 @@ PrefabInstance:
       propertyPath: ColorModule.gradient.maxGradient.key1.r
       value: 0.5058824
       objectReference: {fileID: 0}
+    - target: {fileID: 19860484, guid: 8d8e6ee2560724845815af737e2f31fc, type: 3}
+      propertyPath: InitialModule.gravityModifier.scalar
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d8e6ee2560724845815af737e2f31fc, type: 3}
 --- !u!4 &7071586717959915541 stripped

@@ -16,7 +16,7 @@ public class Tooltip : MonoBehaviour
     string path;
     string jsonString;
 
-    List<TowerEntity> towerEntities = new List<TowerEntity>();
+    List<TowerEntity> towerEntities = new List<TowerEntity>(); // This wont work in webgl build
 
     void Start()
     {
